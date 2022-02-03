@@ -82,15 +82,65 @@ class Library {
     {this.books.push(book);}
   }
 
-   
-/*findBookBy(type, value) {
-    for (let i = 0; i < library.books.length; i++){ let arr1;
-      if(Object.keys(library.books[i]).includes(type) == true) { 
-
-  }*/
-  
-
-  
-
-
+  findBookBy(type, value) { if (this.books.every((elem) =>(elem[type] !== value))) return null;
+    for (let i = 0; i < this.books.length; i++) {
+      if (this.books[i][type] === value) {
+      return this.books[i]
+      }
     }
+  }
+
+  
+giveBookByName(bookName) {
+    if (this.books.every((elem) =>(elem.name !== bookName))) {
+      return null
+    }
+    let result;
+    for (let i = 0; i < this.books.length; i++) {
+      if (this.books[i].name === bookName) {
+        result = this.books[i];
+         /*delete this.books[i];*/ this.books.splice(i,1)
+      }
+      
+    }
+return result;
+  }
+
+  }
+
+  class Student {
+  constructor (name) {
+    this.name = name;
+     this.subjects = {};
+  }
+  addMark(mark, subject) {
+       if ((this.subjects[subject] !== undefined) && (mark > 0) && (mark < 6)) {
+       this.subjects[subject].push(mark);   
+       }
+       if ((this.subjects[subject] !== undefined) && ((mark <= 0) || (mark >= 6))) {
+       console.log ("Ошибка, оценка должна быть числом от 1 до 5")   
+       }
+       if ((this.subjects[subject] === undefined) && (mark > 0) && (mark < 6)) {
+       this.subjects[subject] = [mark];   
+       }
+    }
+
+    getAverageBySubject(subject) {
+ if ((this.subjects[subject] === undefined)){ let result;
+  result = "Несуществующий предмет"; return result
+}
+if ((this.subjects[subject] !== undefined) && (this.subjects[subject].length !== 0)){ let result;
+  let arr = this.subjects[subject]; let avg = arr.reduce((a, b) => (a + b)) / arr.length; result = +avg.toFixed(2); return result;
+}
+return result;
+}
+
+getAverage() {
+ let marksSum = Object.values(this.subjects);
+ let avgOne = marksSum.map((item) => {return item.reduce((a, b) => (a + b)) / item.length;} );
+ let avg = avgOne.reduce((a, b) => (a + b)) / avgOne.length;
+ let result = +avg.toFixed(2);
+ return result;
+ //let avg = marksSum.reduce((a, b) => (a + b)) / marksSum.length;
+}
+}
