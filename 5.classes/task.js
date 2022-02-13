@@ -105,8 +105,7 @@ giveBookByName(bookName) {
     }
 return result;
   }
-
-  }
+}
 
   class Student {
   constructor (name) {
@@ -141,6 +140,5 @@ getAverage() {
  let avg = avgOne.reduce((a, b) => (a + b)) / avgOne.length;
  let result = +avg.toFixed(2);
  return result;
- //let avg = marksSum.reduce((a, b) => (a + b)) / marksSum.length;
-}
+ }
 }
