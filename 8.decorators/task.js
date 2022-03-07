@@ -27,10 +27,38 @@ return wrapper;
 }
 
 
-function debounceDecoratorNew(func) {
-  // Ваш код
+function debounceDecoratorNew(func,ms) {
+  let flag = false;   
+  return function(...args) {
+    if (flag === false) { 
+       console.log(func(...args));  
+       flag = true;
+    }
+    if (flag === true) {
+      setTimeout(() => {     
+         flag = false
+          },ms);
+    }
+  }
+    
 }
 
-function debounceDecorator2(func) {
-  // Ваш код
+
+  
+function debounceDecorator(func,ms) {
+  let flag = false;
+  let count = 1;  
+  return function(...args) { 
+    console.log(`ВЫзовов ${count++}`)
+    if (flag === false) { 
+      console.log(func(...args));  flag = true;
+    }
+    if (flag === true) {
+      setTimeout(() => {     
+      flag = false;
+      },ms);
+    }
+  }
 }
+
+
