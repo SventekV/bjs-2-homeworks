@@ -28,37 +28,38 @@ return wrapper;
 
 
 function debounceDecoratorNew(func,ms) {
-  let flag = false;   
-  return function(...args) {
-    if (flag === false) { 
-       console.log(func(...args));  
-       flag = true;
-    }
-    if (flag === true) {
-      setTimeout(() => {     
-         flag = false
-          },ms);
-    }
-  }
-    
+  let flag = true;
+  let timeOut;
+   function wrapper(...arg) {
+      if (flag === true) {
+        func(...arg);
+        flag = false;}
+      if(flag === false) {
+        clearTimeout(timeOut);  
+        timeOut = setTimeout(() => func(...arg) , ms); 
+      }
+   }
+   return  wrapper;
 }
 
 
   
-function debounceDecorator(func,ms) {
-  let flag = false;
-  let count = 1;  
-  return function(...args) { 
-    console.log(`ВЫзовов ${count++}`)
-    if (flag === false) { 
-      console.log(func(...args));  flag = true;
+function debounceDecorator2(func,ms) {
+  let flag = true;
+  let timeOut;
+    function wrapper(...arg) { 
+      wrapper.count += 1;
+      if (flag === true) {
+        func(...arg); 
+        flag = false;
+      }
+      if(flag === false) {
+        clearTimeout(timeOut);  
+        timeOut = setTimeout(() => func(...arg) , ms); 
+      }
     }
-    if (flag === true) {
-      setTimeout(() => {     
-      flag = false;
-      },ms);
-    }
-  }
+  wrapper.count = 0;
+  return  wrapper; 
 }
 
 
